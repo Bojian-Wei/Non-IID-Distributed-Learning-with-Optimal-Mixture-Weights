@@ -1,0 +1,38 @@
+# searchSpaceFile: search_space.json
+searchSpace:
+  # kernel_par:
+  #   _type: choice
+  #   _value: [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
+  # lr_p_os:
+  #   _type: choice
+  #   _value: [0.5, 0.1, 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.00005, 0.00001, 0.000005, 0.000001]
+  # lambda_reg_os:
+  #   _type: choice
+  #   _value: [0.1, 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.00005, 0.00001, 0.000005, 0.000001, 0.0000001]
+  lr_p:
+    _type: choice
+    _value: [0.5, 0.1, 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.00005, 0.00001, 0.000005, 0.000001]
+  lambda_reg:
+    _type: choice
+    _value: [0.1, 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.00005, 0.00001, 0.000005, 0.000001, 0.0000001]
+  # lambda_prox:
+  #   _type: choice
+  #   _value: [0.1, 0.05, 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.00005, 0.00001, 0.000001, 0.0000001]
+  # lr:
+  #   _type: choice
+  #   _value: [0.000001, 0.000005, 0.00001, 0.00005, 0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0]
+
+trialCommand: python3 tune.py --dataset satimage --D 2000 --round 100
+trialGpuNumber: 2
+trialConcurrency: 4
+maxTrialNumber: 30
+tuner:
+  name: TPE
+  classArgs:
+    optimize_mode: minimize
+trainingService:  # For other platforms, check mnist-pytorch example
+  platform: local
+  maxTrialNumberPerGpu: 2
+  useActiveGpu: true  # NOTE: Use "true" if you are using an OS with graphical interface (e.g. Windows 10, Ubuntu desktop)
+                       # Check the doc for details: https://nni.readthedocs.io/en/latest/reference/experiment_config.html#useactivegpu
+
